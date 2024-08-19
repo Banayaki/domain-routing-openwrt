@@ -391,9 +391,11 @@ dnsmasqfull() {
         printf "\033[32;1mdnsmasq-full already installed\033[0m\n"
     else
         printf "\033[32;1mInstalled dnsmasq-full\033[0m\n"
+        opkg install ipset libnettle8 libnetfilter-conntrack3
         cd /tmp/ && opkg download dnsmasq-full
-        opkg remove dnsmasq && opkg install dnsmasq-full --cache /tmp/
-
+        opkg remove dnsmasq
+        opkg install dnsmasq-full --cache /tmp/
+        rm -f /tmp/dnsmasq-full*.ipk
         [ -f /etc/config/dhcp-opkg ] && cp /etc/config/dhcp /etc/config/dhcp-old && mv /etc/config/dhcp-opkg /etc/config/dhcp
 fi
 }
